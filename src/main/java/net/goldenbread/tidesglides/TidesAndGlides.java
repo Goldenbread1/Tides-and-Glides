@@ -1,5 +1,6 @@
 package net.goldenbread.tidesglides;
 
+import net.goldenbread.tidesglides.item.ModItems;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -34,26 +35,19 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class TidesAndGlides {
     public static final String MOD_ID = "tidesglides";
     public static final Logger LOGGER = LogUtils.getLogger();
+
     public TidesAndGlides(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
 
         NeoForge.EVENT_BUS.register(this);
 
-        modEventBus.addListener(this::addCreative);
+        ModItems.register(modEventBus);
 
+        modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        LOGGER.info("HELLO FROM COMMON SETUP");
-
-        if (Config.LOG_DIRT_BLOCK.getAsBoolean()) {
-            LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
-        }
-
-        LOGGER.info("{}{}", Config.MAGIC_NUMBER_INTRODUCTION.get(), Config.MAGIC_NUMBER.getAsInt());
-
-        Config.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
@@ -61,5 +55,7 @@ public class TidesAndGlides {
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
+
+        LOGGER.info("HELLO from server starting");
     }
 }
