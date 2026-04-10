@@ -1,5 +1,7 @@
 package net.goldenbread.tidesglides;
 
+import net.goldenbread.tidesglides.block.ModBlocks;
+import net.goldenbread.tidesglides.item.ModCreativeModeTabs;
 import net.goldenbread.tidesglides.item.ModItems;
 import org.slf4j.Logger;
 
@@ -41,7 +43,10 @@ public class TidesAndGlides {
 
         NeoForge.EVENT_BUS.register(this);
 
+        ModCreativeModeTabs.register(modEventBus);
+
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
